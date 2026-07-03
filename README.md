@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/5d780de9-3bff-4ccf-a7c2-ff8636f04ecf
+
 # Secure 2-Tier E-Commerce Infrastructure on AWS
 
 **Production-grade, highly available cloud architecture provisioned entirely through Infrastructure as Code (Terraform).**
