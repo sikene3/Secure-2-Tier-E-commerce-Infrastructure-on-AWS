@@ -7,8 +7,7 @@ graph TD
     IGW --> ALB[Application Load Balancer]
 
     subgraph VPC [AWS VPC - Secure Network]
-        ALB
-
+        
         subgraph Public_Tier [Public Subnets - DMZ]
             ALB
         end
