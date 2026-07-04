@@ -174,6 +174,19 @@ Review the destruction plan, type `yes`, and all resources will be permanently d
 - Introduce a CI/CD pipeline (GitHub Actions) for `terraform plan` on pull requests.
 - Enable RDS Multi-AZ for production failover readiness.
 
+## 💰 Infrastructure Allocation & Cost Optimization
+
+To ensure a balance between high availability and cost-efficiency, this architecture is designed using a lean resource allocation strategy suitable for starting enterprise environments.
+
+| Tier | AWS Resource | Specification / Instance Type | Purpose & Cost Strategy |
+| :--- | :--- | :--- | :--- |
+| **Network** | VPC & Subnets | Custom `10.0.0.0/16` | Free tier compatible. logically isolates environments. |
+| **Routing** | ALB | Application Load Balancer | Distributes traffic across zones to prevent single points of failure. |
+| **Compute** | EC2 (Auto Scaling) | `t2.micro` (Amazon Linux 2023) | Handles OpenCart PHP workload. Kept lightweight to utilize Free Tier limits while proving scale. |
+| **Database** | RDS | MySQL `db.t3.micro` | Securely stores relational data (Products, Users, Orders) in a private subnet, avoiding public IP costs and risks. |
+
+> **Note:** This infrastructure is provisioned dynamically via Terraform (`Infrastructure as Code`). The entire environment can be spun up or destroyed in minutes to prevent idle resource billing (`terraform destroy`).
+
 ---
 
 *Built by a Senior Cloud/DevOps Engineer — demonstrating infrastructure-as-code discipline, AWS architectural best practices, and production-grade security patterns.*
