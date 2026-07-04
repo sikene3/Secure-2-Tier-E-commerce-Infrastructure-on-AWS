@@ -1,5 +1,32 @@
 
+## 🏗️ Architecture Diagram (AWS 2-Tier)
 
+```mermaid
+graph TD
+    Client([Client / Web Browser]) -->|Internet| IGW[Internet Gateway]
+    IGW --> ALB[Application Load Balancer]
+
+    subgraph VPC [AWS VPC - Secure Network]
+        ALB
+
+        subgraph Public_Tier [Public Subnets - DMZ]
+            ALB
+        end
+
+        subgraph App_Tier [Private Subnets - Application Tier]
+            EC2_1[EC2 Instance 1 - OpenCart]
+            EC2_2[EC2 Instance 2 - OpenCart]
+        end
+
+        subgraph DB_Tier [Private Subnets - Database Tier]
+            RDS[(RDS MySQL Database)]
+        end
+
+        ALB ==>|HTTP - Port 80| EC2_1
+        ALB ==>|HTTP - Port 80| EC2_2
+        EC2_1 -.->|TCP - Port 3306| RDS
+        EC2_2 -.->|TCP - Port 3306| RDS
+    end
 https://github.com/user-attachments/assets/5d780de9-3bff-4ccf-a7c2-ff8636f04ecf
 
 # Secure 2-Tier E-Commerce Infrastructure on AWS
